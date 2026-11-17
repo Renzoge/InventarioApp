@@ -5,16 +5,20 @@
     <item
         android:id="@+id/opVender"
         android:title="Vender"
-        app:showAsAction="never" />
+        app:showAsAction="always" />
+
     <item
         android:id="@+id/opProductos"
         android:title="Productos"
         app:showAsAction="never" />
+
     <item
         android:id="@+id/opInventario"
         android:title="Inventario"
         app:showAsAction="never" />
+
     <item
-        android:title="Historial Ventas"
+        android:id="@+id/opHistorial"
+        android:title="Historial de Ventas"
         app:showAsAction="never" />
 </menu>

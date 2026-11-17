@@ -1,91 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="20dp">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:text="Información de Productos"
-        android:textColor="#00A8E8"
-        android:textSize="22sp"
-        android:textStyle="bold" />
-
-    <!-- Código del Producto -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:padding="20dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Código del Producto">
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="Registro y Reposición"
+            android:textColor="#0077B6"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtCodigo"
-                android:layout_width="match_parent"
+        <!-- Fila Código + Cámara + Buscar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/txtCodigoProd"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Código del producto"
                 android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
 
-        <ImageButton
-            android:id="@+id/btnEscanear"
-            android:layout_width="48dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="12dp"
-            android:backgroundTint="#D9D9D9"
-            android:contentDescription="Escanear código"
-            android:src="@android:drawable/ic_menu_camera" />
-    </LinearLayout>
+            <ImageButton
+                android:id="@+id/btnCamaraProd"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="6dp"
+                android:contentDescription="Escanear"
+                android:src="@android:drawable/ic_menu_camera" />
 
-    <!-- Nombre del Producto -->
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:hint="Nombre del Producto">
+            <Button
+                android:id="@+id/btnBuscarProd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="Buscar" />
+        </LinearLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtNombre"
+        <EditText
+            android:id="@+id/txtNombreProd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginBottom="12dp"
+            android:hint="Nombre del producto"
+            android:inputType="textCapSentences" />
 
-    <!-- Margen de Ganancia -->
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:hint="Margen de Ganancia %">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtMargen"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Categoría:"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spCategoria"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="12dp" />
+
+        <EditText
+            android:id="@+id/txtCostoProd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="Costo de compra (S/)"
             android:inputType="numberDecimal" />
-    </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Botón Guardar -->
-    <Button
-        android:id="@+id/btnGuardar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:paddingHorizontal="28dp"
-        android:text="Guardar" />
+        <EditText
+            android:id="@+id/txtPrecioProd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="Precio de venta (S/)"
+            android:inputType="numberDecimal" />
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/txtStockProd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:hint="Stock / Cantidad"
+            android:inputType="number" />
+
+        <Button
+            android:id="@+id/btnGuardarProd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guardar Producto" />
+
+    </LinearLayout>
+</ScrollView>
