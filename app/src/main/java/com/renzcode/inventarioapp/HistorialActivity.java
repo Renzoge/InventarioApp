@@ -8,12 +8,14 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -49,49 +51,61 @@ public class HistorialActivity extends AppCompatActivity {
                     .show();
             return true;
         });
+
+        //Barra de navegación
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
+        bottomNav.setSelectedItemId(R.id.nav_historial);
+        bottomNav.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+            if (id == R.id.nav_vender) {
+                startActivity(new Intent(this, MainActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
+                return true;
+            } else if (id == R.id.nav_inventario) {
+                startActivity(new Intent(this, InventarioActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
+                return true;
+            } else if (id == R.id.nav_productos) {
+                startActivity(new Intent(this, ProductoActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
+                return true;
+            }
+            return id == R.id.nav_historial;
+        });
+        getOnBackPressedDispatcher().addCallback(this, new androidx.activity.OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                startActivity(new Intent(HistorialActivity.this, MainActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
+            }
+        });
     }
 
     private void cargarVentas() {
         listaVentas = db.listarVentas();
-        ArrayList<Map<String, String>> datos = new ArrayList<>();
+        List<Map<String, String>> datos = new ArrayList<>();
 
         for (Venta v : listaVentas) {
             Map<String, String> fila = new HashMap<>();
-            fila.put("titulo", v.getNombreProducto() + " (x" + v.getCantidad() + ") - Total: S/ " + String.format(Locale.US, "%.2f", v.getTotalCobrado()));
-            fila.put("detalle", "Código: " + v.getCodigoProducto() + " | Fecha: " + v.getFecha());
+            fila.put("producto", v.getNombreProducto());
+            fila.put("detalle", v.getCantidad() + " unidades • Cód. #" + v.getCodigoProducto());
+            fila.put("fecha", v.getFecha());
+            fila.put("total", String.format(Locale.US, "S/ %.2f", v.getTotalCobrado()));
             datos.add(fila);
         }
 
         SimpleAdapter adapter = new SimpleAdapter(
                 this,
                 datos,
-                android.R.layout.simple_list_item_2,
-                new String[]{"titulo", "detalle"},
-                new int[]{android.R.id.text1, android.R.id.text2}
+                R.layout.item_historial,
+                new String[]{"producto", "detalle", "fecha", "total"},
+                new int[]{R.id.txtHistProducto, R.id.txtHistDetalle, R.id.txtHistFecha, R.id.txtHistTotal}
         );
         lvHistorial.setAdapter(adapter);
     }
 
-    // ==================== MENÚ DE NAVEGACIÓN ====================
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.opVender) {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
-        } else if (id == R.id.opProductos) {
-            startActivity(new Intent(this, ProductoActivity.class));
-            finish();
-        } else if (id == R.id.opInventario) {
-            startActivity(new Intent(this, InventarioActivity.class));
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

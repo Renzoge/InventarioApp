@@ -1,7 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.InventarioApp" parent="Theme.Material3.DayNight">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    <style name="Base.Theme.InventarioApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primario</item>
+        <item name="colorSecondary">@color/acento</item>
+        <item name="android:windowBackground">@color/bg_pantalla</item>
+        <item name="android:statusBarColor">@color/bg_pantalla</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>

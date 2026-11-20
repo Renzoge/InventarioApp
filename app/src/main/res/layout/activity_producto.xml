@@ -1,108 +1,286 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:background="@color/bg_pantalla"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <!-- Zona desplazable del formulario -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:gravity="center"
-            android:text="Registro y Reposición"
-            android:textColor="#0077B6"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <!-- Fila Código + Cámara + Buscar -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="24dp">
 
-            <EditText
-                android:id="@+id/txtCodigoProd"
-                android:layout_width="0dp"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Código del producto"
-                android:inputType="text" />
+                android:text="Productos"
+                android:textColor="@color/primario"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
-            <ImageButton
-                android:id="@+id/btnCamaraProd"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="6dp"
-                android:contentDescription="Escanear"
-                android:src="@android:drawable/ic_menu_camera" />
-
-            <Button
-                android:id="@+id/btnBuscarProd"
-                android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:text="Buscar" />
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="16dp"
+                android:text="Registra artículos nuevos o busca un código para actualizar"
+                android:textColor="@color/texto_secundario"
+                android:textSize="13sp" />
+
+            <!-- Tarjeta 1: Identificación y Búsqueda -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                app:cardBackgroundColor="@color/bg_tarjeta"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/borde_sutil"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="CÓDIGO DE BARRAS"
+                        android:textColor="@color/texto_secundario"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Código del producto"
+                            app:boxCornerRadiusBottomEnd="10dp"
+                            app:boxCornerRadiusBottomStart="10dp"
+                            app:boxCornerRadiusTopEnd="10dp"
+                            app:boxCornerRadiusTopStart="10dp"
+                            app:boxStrokeColor="@color/borde_sutil">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/txtCodigoProd"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:textColor="@color/texto_principal"
+                                android:textSize="15sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <ImageButton
+                            android:id="@+id/btnCamaraProd"
+                            android:layout_width="50dp"
+                            android:layout_height="52dp"
+                            android:layout_marginStart="8dp"
+                            android:backgroundTint="@color/primario"
+                            android:contentDescription="Escanear"
+                            android:src="@drawable/ic_barcode"
+                            app:tint="@color/white" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnBuscarProd"
+                            style="@style/Widget.Material3.Button.OutlinedButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="52dp"
+                            android:layout_marginStart="6dp"
+                            android:text="Buscar"
+                            android:textColor="@color/primario"
+                            app:cornerRadius="10dp"
+                            app:strokeColor="@color/borde_sutil" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Tarjeta 2: Datos del Artículo -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="18dp"
+                app:cardBackgroundColor="@color/bg_tarjeta"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/borde_sutil"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="DETALLES Y PRECIOS"
+                        android:textColor="@color/texto_secundario"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:hint="Nombre del producto"
+                        app:boxCornerRadiusBottomEnd="10dp"
+                        app:boxCornerRadiusBottomStart="10dp"
+                        app:boxCornerRadiusTopEnd="10dp"
+                        app:boxCornerRadiusTopStart="10dp"
+                        app:boxStrokeColor="@color/borde_sutil">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txtNombreProd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textCapSentences"
+                            android:textColor="@color/texto_principal" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="Categoría"
+                        android:textColor="@color/texto_secundario"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/spCategoria"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/abc_spinner_mtrl_am_alpha"
+                        android:backgroundTint="@color/primario" />
+
+                    <!-- Fila de Costo y Precio de Venta lado a lado -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="6dp"
+                            android:layout_weight="1"
+                            android:hint="Costo (S/)"
+                            app:boxCornerRadiusBottomEnd="10dp"
+                            app:boxCornerRadiusBottomStart="10dp"
+                            app:boxCornerRadiusTopEnd="10dp"
+                            app:boxCornerRadiusTopStart="10dp"
+                            app:boxStrokeColor="@color/borde_sutil">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/txtCostoProd"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="numberDecimal"
+                                android:textColor="@color/texto_principal" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_weight="1"
+                            android:hint="Venta (S/)"
+                            app:boxCornerRadiusBottomEnd="10dp"
+                            app:boxCornerRadiusBottomStart="10dp"
+                            app:boxCornerRadiusTopEnd="10dp"
+                            app:boxCornerRadiusTopStart="10dp"
+                            app:boxStrokeColor="@color/borde_sutil">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/txtPrecioProd"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="numberDecimal"
+                                android:textColor="@color/texto_principal" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Stock / Cantidad disponible"
+                        app:boxCornerRadiusBottomEnd="10dp"
+                        app:boxCornerRadiusBottomStart="10dp"
+                        app:boxCornerRadiusTopEnd="10dp"
+                        app:boxCornerRadiusTopStart="10dp"
+                        app:boxStrokeColor="@color/borde_sutil">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txtStockProd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:textColor="@color/texto_principal" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGuardarProd"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:backgroundTint="@color/acento"
+                android:text="Guardar Producto"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:cornerRadius="12dp" />
+
         </LinearLayout>
+    </ScrollView>
 
-        <EditText
-            android:id="@+id/txtNombreProd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:hint="Nombre del producto"
-            android:inputType="textCapSentences" />
+    <!-- Línea divisoria + Barra de navegación inferior -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/borde_sutil" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Categoría:"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_tarjeta"
+        app:itemIconTint="@color/primario"
+        app:itemTextColor="@color/primario"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/menu_bottom" />
 
-        <Spinner
-            android:id="@+id/spCategoria"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="12dp" />
-
-        <EditText
-            android:id="@+id/txtCostoProd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:hint="Costo de compra (S/)"
-            android:inputType="numberDecimal" />
-
-        <EditText
-            android:id="@+id/txtPrecioProd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:hint="Precio de venta (S/)"
-            android:inputType="numberDecimal" />
-
-        <EditText
-            android:id="@+id/txtStockProd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:hint="Stock / Cantidad"
-            android:inputType="number" />
-
-        <Button
-            android:id="@+id/btnGuardarProd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Guardar Producto" />
-
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>

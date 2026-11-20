@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -65,6 +66,38 @@ public class ProductoActivity extends AppCompatActivity {
 
         // Botón Guardar
         btnGuardar.setOnClickListener(v -> guardarOActualizar());
+
+        //Barra de navegacion
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
+        bottomNav.setSelectedItemId(R.id.nav_productos);
+        bottomNav.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+            if (id == R.id.nav_vender) {
+                startActivity(new Intent(this, MainActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
+                return true;
+            } else if (id == R.id.nav_inventario) {
+                startActivity(new Intent(this, InventarioActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
+                return true;
+            } else if (id == R.id.nav_historial) {
+                startActivity(new Intent(this, HistorialActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
+                return true;
+            }
+            return id == R.id.nav_productos;
+        });
+        getOnBackPressedDispatcher().addCallback(this, new androidx.activity.OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                startActivity(new Intent(ProductoActivity.this, MainActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
+            }
+        });
     }
 
     private void buscarProducto() {

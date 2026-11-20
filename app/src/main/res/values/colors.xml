@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="bg_pantalla">#F8FAFC</color>
+    <color name="bg_tarjeta">#FFFFFF</color>
+    <color name="borde_sutil">#E2E8F0</color>
+
+    <color name="primario">#0F172A</color>
+    <color name="acento">#D97706</color>
+    <color name="acento_suave">#FEF3C7</color>
+
+    <color name="texto_principal">#0F172A</color>
+    <color name="texto_secundario">#64748B</color>
+
+    <color name="verde_exito">#16A34A</color>
+    <color name="verde_fondo">#DCFCE7</color>
+    <color name="rojo_alerta">#DC2626</color>
+    <color name="rojo_fondo">#FEE2E2</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
 </resources>

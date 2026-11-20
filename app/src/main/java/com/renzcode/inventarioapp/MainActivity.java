@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -81,6 +82,41 @@ public class MainActivity extends AppCompatActivity {
 
         // Botón Confirmar Venta
         btnConfirmar.setOnClickListener(v -> procesarVenta());
+
+        // BARRA DE NAVEGACIÓN INFERIOR
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
+        bottomNav.setSelectedItemId(R.id.nav_vender);
+        bottomNav.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+            if (id == R.id.nav_inventario) {
+                startActivity(new Intent(this, InventarioActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
+                return true;
+            } else if (id == R.id.nav_productos) {
+                startActivity(new Intent(this, ProductoActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
+                return true;
+            } else if (id == R.id.nav_historial) {
+                startActivity(new Intent(this, HistorialActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
+                return true;
+            }
+            return id == R.id.nav_vender;
+        });
+        getOnBackPressedDispatcher().addCallback(this, new androidx.activity.OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Salir de la aplicación")
+                        .setMessage("¿Seguro que deseas cerrar el Punto de Venta?")
+                        .setPositiveButton("Sí, salir", (dialog, which) -> finish())
+                        .setNegativeButton("Cancelar", null)
+                        .show();
+            }
+        });
     }
 
     private void buscarProducto() {
@@ -202,26 +238,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // MENÚ DE NAVEGACIÓN
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.opProductos) {
-            startActivity(new Intent(this, ProductoActivity.class));
-            finish();
-        } else if (id == R.id.opInventario) {
-            startActivity(new Intent(this, InventarioActivity.class));
-            finish();
-        } else if (id == R.id.opHistorial) {
-            startActivity(new Intent(this, HistorialActivity.class));
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

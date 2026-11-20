@@ -11,12 +11,14 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -69,27 +71,61 @@ public class InventarioActivity extends AppCompatActivity {
                     .show();
             return true;
         });
+
+        //Barra de navegacion
+
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
+        bottomNav.setSelectedItemId(R.id.nav_inventario);
+        bottomNav.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+            if (id == R.id.nav_vender) {
+                startActivity(new Intent(this, MainActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
+                return true;
+            } else if (id == R.id.nav_productos) {
+                startActivity(new Intent(this, ProductoActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
+                return true;
+            } else if (id == R.id.nav_historial) {
+                startActivity(new Intent(this, HistorialActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
+                return true;
+            }
+            return id == R.id.nav_inventario;
+        });
+        getOnBackPressedDispatcher().addCallback(this, new androidx.activity.OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                startActivity(new Intent(InventarioActivity.this, MainActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
+            }
+        });
     }
 
     private void cargarLista(String filtro) {
         listaProductos = db.listarProductos(filtro);
-        ArrayList<Map<String, String>> datos = new ArrayList<>();
+        List<Map<String, String>> datos = new ArrayList<>();
 
         for (Producto p : listaProductos) {
             Map<String, String> fila = new HashMap<>();
-            fila.put("titulo", "[" + p.getCodigo() + "] " + p.getNombre() + " (" + p.getCategoria() + ")");
-            fila.put("detalle", String.format(Locale.US,
-                    "Stock: %d | Venta: S/ %.2f | Ganancia unit.: S/ %.2f",
-                    p.getStock(), p.getPrecioVenta(), p.getGananciaUnitaria()));
+            fila.put("nombre", p.getNombre());
+            fila.put("meta", "#" + p.getCodigo() + " • " + p.getCategoria());
+            fila.put("stock", p.getStock() + " und.");
+            fila.put("precio", String.format(Locale.US, "Venta: S/ %.2f", p.getPrecioVenta()));
+            fila.put("ganancia", String.format(Locale.US, "Ganancia: +S/ %.2f", p.getGananciaUnitaria()));
             datos.add(fila);
         }
 
         SimpleAdapter adapter = new SimpleAdapter(
                 this,
                 datos,
-                android.R.layout.simple_list_item_2,
-                new String[]{"titulo", "detalle"},
-                new int[]{android.R.id.text1, android.R.id.text2}
+                R.layout.item_inventario,
+                new String[]{"nombre", "meta", "stock", "precio", "ganancia"},
+                new int[]{R.id.txtItemNombre, R.id.txtItemMeta, R.id.txtItemStock, R.id.txtItemPrecio, R.id.txtItemGanancia}
         );
         lvInventario.setAdapter(adapter);
     }
